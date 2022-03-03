@@ -1,6 +1,8 @@
 name: Deploy Staging
 
-on: pull_request
+on:
+  pull_request:
+    types: [opened, synchronize, closed]
 
 jobs:
   staging:
@@ -52,4 +54,4 @@ jobs:
             }
       - name: Clean up staging
         if: github.event.action== 'closed'
-        run: aws s3 rm "s3://all4uhealthcare-website-staging/pr_${GITHUB_PR_NUMBER}"
+        run: aws s3 rm "s3://all4uhealthcare-website-staging/pr_${GITHUB_PR_NUMBER}" --recursive
