@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@700&family=Rubik&display=swap');
+/* custom colors */
+.bg_nav_pink{
+    background-color: #FFC0CB;
+    padding: .2em;
+}
+.bg_pink{
+    background-color: #FF008C;
+}
+.text_pink{
+    color: #FF008C;
+}
+.bg_blue{
+    background-color: #093867;
+}
+.text_blue{
+    color: #093867;
+}
+/*  */
+body{
+    font-family: 'Rubik', sans-serif;
+}
+#parent_container{
+    background-color: #FF008C;
+}
+/* navbar */
+@media only screen and (max-width: 768px) {
+    #company_logo_container img{
+        position: relative;
+    }
+    #company_logo_container img{
+        position: relative;
+        left: 10%;
+        width: 80%;
+    }
+}
+#company_logo{
+    width: 300px;
+    height: 130px;
+    margin:auto;
+}
+.nav_item{
+    font-size: 2em;
+    font-family: 'Rubik', sans-serif;
+    font-weight: bolder;
+    opacity: .9;
+}
+@media only screen and (max-width: 2000px) {
+    .nav_item a{
+        font-size: large;
+    }
+}
+.nav_link{
+    color: #093867;
+    text-shadow: #ffffff .01em 0.025em;
+    font-size: .8em;
+}
+@media only screen and (max-width: 1200px) {
+    .nav_link{
+        font-size: .5em;
+    }
+}
+.page{
+    display: none;
+}
+#home_page{
+    display: block;
+}
+/* about page */
+#company_description{
+    width: 60%;
+    margin: auto;
+}
+.landing_4{
+    margin: -.25em;
+    height: .8em;
+    position: relative;
+    bottom: .1em;
+}
+/* registration page */
+#candidate_registration_form_container{
+    width: 70%;
+    margin: auto;
+}
+@media only screen and (max-width: 2000px) {
+    .nav_item a{
+        font-size: large;
+    }
+    #registration_page{
+        font-size: .8em;
+    }
+}
+@media only screen and (max-width: 430px) {
+    .candidate_registration_form_section_title_long{
+        font-size: .7em;
+    }
+}
+#registration_confirmation_loading, #registration_confirmation_message{
+    display: none;
+}
+#registration_confirmation_message{
+    font-size: 1em;
+}
+hr{
+    border: 1.5px solid #FF008C;
+}
+/* jobs */
+@media only screen and (max-width: 500px) {
+    .job_abbreviation{
+        display: none;
+    }
+}
+#jobs_leading_statement{
+    position: relative;
+}
+.general_jobs_description{
+    list-style-type: disc;
+}
+.hide{
+    display: none;
+}
+/* contact page */
+#contact_page{
+    position: relative;
+    font-size: .8em;
+}
+.gmap_canvas{
+    overflow:hidden;
+    background:none !important;
+}
+.gmap_canvas iframe{
+    width: 500px; 
+    height: 350px;
+}
+@media only screen and (min-width: 768px) {
+    #company_address_map{
+        position: absolute;
+        top: 2em;
+        right: 2em;
+    }
+}
+@media only screen and (max-width: 765px) {
+    #company_address_map{
+        padding-left: 1.8em;
+    }
+    #copyright_info{
+        display: none;
+    }
+}
+/* footer */
+footer #copyright_info{
+    position: fixed;
+    bottom: 1em;
+    left: 0;
+    font-size: .7em;
+}
+footer #social_media_icons{
+    position: fixed;
+    bottom: 1em;
+    right: 0;
+}
+/* underConstructionMessage */
+.show{
+    display: block;
+}

@@ -1,37 +1,410 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang='en'>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-    <title>All 4 U Healthcare</title>
+    <meta charset='UTF-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta name='developers' content='FTanekha KTanekha'>
+    <meta name='keywords' content='all4u health healthcare solutions healthsolutions caresolutions all4uhealthcaresolutions'>
+    <link 
+        href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' 
+        rel='stylesheet' integrity='sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC' 
+        crossorigin='anonymous'
+    />
+    <link rel='stylesheet' href='./styles/styles.css'/>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'> 
+    <link rel='stylesheet' href='./styles/socialMedia.css'>
+    <!-- favicon -->
+    <link rel='apple-touch-icon-precomposed' sizes='57x57' href='./images/apple-touch-icon-57x57.png' />
+    <link rel='apple-touch-icon-precomposed' sizes='114x114' href='./images/apple-touch-icon-114x114.png' />
+    <link rel='apple-touch-icon-precomposed' sizes='72x72' href='./images/apple-touch-icon-72x72.png' />
+    <link rel='apple-touch-icon-precomposed' sizes='144x144' href='./images/apple-touch-icon-144x144.png' />
+    <link rel='apple-touch-icon-precomposed' sizes='60x60' href='./images/apple-touch-icon-60x60.png' />
+    <link rel='apple-touch-icon-precomposed' sizes='120x120' href='./images/apple-touch-icon-120x120.png' />
+    <link rel='apple-touch-icon-precomposed' sizes='76x76' href='./images/apple-touch-icon-76x76.png' />
+    <link rel='apple-touch-icon-precomposed' sizes='152x152' href='./images/apple-touch-icon-152x152.png' />
+    <link rel='icon' type='image/png' href='./images/favicon-196x196.png' sizes='196x196' />
+    <link rel='icon' type='image/png' href='./images/favicon-96x96.png' sizes='96x96' />
+    <link rel='icon' type='image/png' href='./images/favicon-32x32.png' sizes='32x32' />
+    <link rel='icon' type='image/png' href='./images/favicon-16x16.png' sizes='16x16' />
+    <link rel='icon' type='image/png' href='./images/favicon-128.png' sizes='128x128' />
+    <meta name='application-name' content='&nbsp;'/>
+    <meta name='msapplication-TileColor' content='#FFFFFF' />
+    <meta name='msapplication-TileImage' content='mstile-144x144.png' />
+    <meta name='msapplication-square70x70logo' content='mstile-70x70.png' />
+    <meta name='msapplication-square150x150logo' content='mstile-150x150.png' />
+    <meta name='msapplication-wide310x150logo' content='mstile-310x150.png' />
+    <meta name='msapplication-square310x310logo' content='mstile-310x310.png' />
+    <!--  -->
+    <script 
+        src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js' 
+        integrity='sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM' 
+        crossorigin='anonymous' defer
+    >
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <script 
+        src='https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js' 
+        integrity='sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg==' 
+        crossorigin='anonymous' referrerpolicy='no-referrer' defer
+    >
+    </script>
+    <script id='navbar_template' type='text/x-handlebars-template' defer>
+    <!-- navbar-->
+        <div class='row my-3 bg-white'>
+            <div id='company_logo_container' class='col-sm-12 col-md-4'>
+                <img id='company_logo' class='mt-3 img-fluid' src='./images/currentLogo.jfif' alt='company_logo' title='return to home page'>
+            </div>
+            <div class='col-sm-12 col-md-8'>
+                <ul class='list-inline p-5'>
+                    <div class='row'>
+                        {{#each nav}}  
+                        <div class='col text-center'>
+                            <li class='nav_item list-inline-item text-uppercase fw-bolder'>
+                                <a id={{this.id}} class='nav_link text-decoration-none text-dark fw-bolder' href={{this.href}}>{{this.id}}</a>
+                            </li>
+                        </div>
+                        {{/each}}
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </script>
+    <script id='general_jobs_template' type='text/x-handlebars-template' defer>
+        <ul class='list-unstyled'>
+            {{#each jobs}}  
+            <li id={{this.title}} class='fw-bolder my-5 ms-4'>
+                <h6 class='general_jobs_title mb-1 text-capitalize' title='click job title to see/ hide job description'>{{this.title}} 
+                    {{#if this.abbr}}
+                        <span class='job_abbreviation'>
+                            ( <span class='fw-bolder text-uppercase'>{{this.abbr}}</span> )
+                        </span> <i class='fa fa-angle-down fw-bolder'></i>
+                        {{else}}
+                        <span class='job_abbreviation'>
+                            ( <span class='fw-bolder text-uppercase'>*</span> )
+                        </span> <i class='fa fa-angle-down fw-bolder'></i>
+                    {{/if}}
+                </h6>
+                <ul class='general_jobs_description hide'>
+                    {{#with this}}
+                        {{#each duties}}
+                        <li class='fw-normal'>{{this}}</li>
+                        {{/each}}
+                    {{/with}}
+                </ul>
+            </li>
+            {{/each}}
+        </ul>
+    </script>
+    <script src='./control/navbar.js' defer></script>
+    <script src='./control/navbarControl.mjs' type='module' defer></script>
+    <script src='./control/missionStatement.js' defer></script>
+    <script src='./control/generalJobs.js' defer></script>
+    <script src='./control/jobDescriptions.js' defer></script>
+    <script src='./control/registrationFormSubmit.js' defer></script>
+    <script src='./control/toggleSocialMediaIconsView.js' defer></script>
+    <title>All4 Healthcare Solutions</title>
 </head>
-<style>
-    body {
-        min-height: 100vh;
-        padding: 0;
-        font-family: 'Roboto', sans-serif;
-    }
-
-    div{
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        margin-right: -50%;
-        transform: translate(-50%, -50%);
-        text-align: center;
-    }
-</style>
 <body>
-<div style="margin: 0 auto">
-    🏥 All 4 U Healthcare Solutions<br/>Putting <b>YOU</b> first<br/><br/>
-
-    Our teams are available 24 hours a day, 7 days a week.<br/><br/>
-    Email: <a href="mailto:info@all4uhealthcare.co.uk">info@all4uhealthcare.co.uk</a>
-</div>
+    <header>
+        <div id='parent_container' class='container card mt-2 border-0'>
+            <nav id='navbar'></nav>
+        </div>
+    </header>
+    <main class='my-5 container'>
+        <div id='main' class='container show'>
+            <!-- landing -->
+            <div id='home_page' class='container page bg-light text_blue py-3'>
+                <div id='welcome_message' class='display-6 fw-bolder my-5 text-center'>
+                    Welcome to 
+                    <span class='text_pink' style='position: relative'>
+                        All
+                        <img src='./images/4.jpg' alt='' class='landing_4'/>
+                    </span>U
+                    <span class='text-dark'> Healthcare Solutions</span>
+                </div>
+                <div id='mission_statement'>
+                    <div id='vision' class='pt-3 text-center'>
+                        <p class='display-5 text_pink'>OUR VISION</p>
+                        <div class='pt-3'> 
+                            At 
+                            <span class='text_pink fw-bolder' style='position: relative'>
+                                All
+                                <img src='./images/4.jpg' alt='' class='landing_4'/>
+                            </span>U
+                            <span class='text-dark fw-bolder'> Healthcare Solutions</span>, we strive to be the engine for successful medical staff resourcing in the UK market <br/>
+                            bringing together medical staff and healthcare providers for the provision of care to patients.
+                        </div>
+                    </div>
+                    <div id='misson' class='mt-5 pt-3 text-center'>
+                        <p class='display-5 text_pink'>OUR MISSION</p>
+                        <div class='pt-3 mb-5 '>
+                            Our mission is to be the medical staffing agency of choice for all major UK healthcare providers.<br/>
+                            Our commitment is to meet the highest standard of safety, ethics and governance in meeting the needs of candidates, clients and staff alike.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- about -->
+            <div id='about_page' class='container page bg-light my-5 py-3'>
+                <div id='company_description' class=''>
+                    <div class='mt-5 text_blue'>
+                        <p>
+                            <span class='text_pink fw-bolder' style='position: relative'>
+                                All
+                                <img src='./images/4.jpg' alt='' class='landing_4'/>
+                            </span>
+                            U<span class='text-dark fw-bolder'> Healthcare Solutions</span> is a privately owned specialist medical staffing agency,
+                            that provides high quality medical talent across the UK.<br/> 
+                        </p>
+                        <div class='my-5'>
+                            <p class='pt-4'>Our core focus is supporting our clients with challenging staffing requirements.<br/>
+                                We pride ourselves on supplying:
+                            </p>
+                        </div>
+                        <div class='my-5'>
+                            <ul style='list-style: inside;'>
+                                <li>Registered Nurses</li>
+                                <li>AHP’s and HCA’s across a variety of specialist areas including Mental Health</li>
+                                <li>General, Paediatrics, and Accident & Emergency</li>
+                            </ul>
+                        </div>
+                        <div class='my-5'>
+                            <p class='pt-4'>As healthcare never stops, 
+                                <span class='text_pink fw-bolder' style='position: relative'>
+                                    All
+                                    <img src='./images/4.jpg' alt='' class='landing_4'/>
+                                </span>
+                                U<span class='text-dark fw-bolder'> Healthcare Solutions</span> operates <br/>
+                                <div class=''>
+                                    <span class='fw-bolder display-6'>
+                                        <span class='text_pink'>24</span> hours a day, 
+                                        <span class='text_pink'>365</span> days a year.
+                                    </span>
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- jobs -->
+            <div id='jobs_page' class='container page bg-light pb-5 text_blue'>
+                <div id='jobs_container' class='mt-3 ms-4'>
+                    <div id='jobs_leading_statement'>
+                        <p class='pt-5 pb-3'>In accordance with our<a class='mission_statement_links text-decoration-none' href='#mission_statement'> 
+                            <i class='fw-normal text-dark'>mission</i></a>, 
+                            <span class='text_pink fw-bolder' style='position: relative'>
+                                All
+                                <img src='./images/4.jpg' alt='' class='landing_4'/>
+                            </span>U
+                            <span class='text-dark fw-bolder'> Healthcare Solutions</span> 
+                            provides various healthcare employment roles in line with the current healthcare opportunities and requirements.
+                        </p>
+                        <p class='pb-3' fw-normal>Below is a brief 
+                            <span class='text-dark'>non-exhaustive</span> 
+                            list of some of the roles we facilitate, including some of the duties entailed:
+                        </p>
+                        <div id='general_jobs' class=''>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- registration -->
+            <div id='registration_page' class='container page py-3 bg-light text_blue fw-bolder'>
+                <div id='candidate_registration_form_container'>
+                    <div class='mt-5 pt-3'>
+                        <p class='fw-normal'>To registered your interest, fill out the short form below. A member of our team will be in touch with you shortly.</p>
+                    </div>
+                    <form id='candidate_registration_form' action='mailto:info@all4uhealthcare.com?subject=Candidate%20registration%20form' 
+                        method='post' enctype='multipart/form-data' class='bg-light rounded-top ext-white mt-3 p-3'
+                    >
+                        <!-- names -->
+                        <div class='my-5 text-center'> <span class='candidate_registration_form_section_title fw-bold text-white bg-secondary p-3'>Personal Information</span></div>
+                        <div class='row'>
+                            <div class='col-sm-12 col-md-2 my-3'>
+                                <label for='candidate_title' class='form-label'>Title:</label>
+                                <input type='text' class='form-control' id='candidate_title' aria-describedby='candidate_title' name='candidate_title' required/>
+                            </div>
+                            <div class='col-sm-12 col-md-5 my-3'>
+                                <label for='candidate_forename' class='form-label'>Forename:</label>
+                                <input type='text' class='form-control' id='candidate_forename' aria-describedby='candidate_forename' name='candidate_forename' required/>
+                            </div>
+                            <div class='col-sm-12 col-md-5 my-3'>
+                                <label for='candidate_surname' class='form-label'>Surname:</label>
+                                <input type='text' class='form-control' id='candidate_surname' aria-describedby='candidate_surname'  name='candidate_surname' required/>
+                            </div>
+                            <div class='col-md-3 my-3'>
+                                <label for='candidate_dob' class='form-label'>Date of birth:</label>
+                                <input type='date' class='form-control' id='candidate_dob' aria-describedby='candidate_date_of_birth' name='candidate_dob' required/>
+                            </div>
+                            <div class='col-md-3 my-3'>
+                                <label for='candidate_gender' class='form-label'>Gender:</label>
+                                <input type='text' class='form-control' id='candidate_gender' aria-describedby='candidate_gender' name='candidate_gender' required/>
+                            </div>
+                            <div class='col-md-6 my-3'>
+                                <label for='candidate_nationality' class='form-label'>Nationality:</label>
+                                <input type='text' class='form-control' id='candidate_nationality' aria-describedby='candidate_nationality' name='candidate_nationality' required/>
+                            </div>
+                        </div>
+                        <!-- canditate contact info -->
+                        <div class='row py-5'>
+                            <div class='my-5 text-center'> <span class='candidate_registration_form_section_title fw-bold text-white  bg-secondary p-3'>Contact Details</span></div>
+                            <div class='col-sm-6 mb-3 pt-3'>
+                                <label for='candidate_contact_number' class='form-label'>Contact number:</label>
+                                <input type='tel' class='form-control' id='candidate_contact_number' aria-describedby='candidate_contact_number' name='candidate_contact_number' required/>
+                            </div>
+                            <div class='col-sm-6 mb-3 pt-3'>
+                                <label for='candidate_email_address' class='form-label'>Email address:</label>
+                                <input type='email' class='form-control' id='candidate_email_address' aria-describedby='candidate_email_address' required/>
+                                <div id='candidate_email_clause' class='form-text text-secondary'>
+                                    <sup>We'll never share your email with a third party without your consent!</sup>
+                                </div>
+                            </div>
+                            <div class='col-sm-6 mb-3'>
+                                <label for='candidate_address' class='form-label'>Address:</label>
+                                <input type='text' class='form-control' id='candidate_address' aria-describedby='candidate_address' required/>
+                            </div>
+                            <div class='col-sm-6 mb-3'>
+                                <label for='candidate_address_town' class='form-label'>Town:</label>
+                                <input type='text' class='form-control' id='candidate_address_town' aria-describedby='candidate_address_town' required/>
+                            </div>
+                            <div class='col-sm-6 mb-3'>
+                                <label for='candidate_address_county' class='form-label'>County:</label>
+                                <input type='text' class='form-control' id='candidate_address_county' aria-describedby='candidate_address_county' required/>
+                            </div>
+                            <div class='col-sm-6 mb-3'>
+                                <label for='candidate_address_p_code' class='form-label'>Post code:</label>
+                                <input type='text' class='form-control' id='candidate_address_p_code' aria-describedby='candidate_address_p_code' required/>
+                            </div>
+                        </div>
+                        <hr class='my-5'/>
+                        <!-- application form supporting documents -->
+                        <div class='mt-3 pt-5 fw-normal'>
+                            <p'>For the Complete Employment Registration Application form:</p>
+                            <ul>
+                                <li>download & fill out the complete Candidate Emploment Registration form below,</li>
+                                <li>upload the filled-out form with any supporting documents</li>
+                            </ul>
+                        </div>
+                        <div class='col-sm-6 mt-5 pt-3'>
+                            <label for='employment_application_form' class='form-label'>Download <span class='fw-normal'>the application form</span></label>
+                            <a href='./applicationForms/All4UCandidateAcquisitionFormv1.0.docx' target='_blank'>
+                                <input id='employment_application_form_download_button' type='button' value='Download' class='btn bg_pink fw-bolder text-white' title='click to download employment application form' disabled/>
+                            </a>
+                        </div>
+                        <div class='col-sm-6 my-5 pt-3'>
+                            <label for='completed_employment_application_form class='form-label'>Upload <span class='fw-normal'>the completed registration form</span></label>
+                            <input class='form-control' type='file' id='completed_employment_application_form' name='completed_employment_application_form' title='optionally, you can send your resume with your registration'>
+                        </div>
+                        <div class='col-sm-6 my-5 pt-3 pb-5'>
+                            <label for='candidate_resume' class='form-label'>Upload <span class='fw-normal'>the supporting documents</span><span class='text-secondary'> e.g. CV</span></label>
+                            <input class='form-control' type='file' id='candidate_resume' name='candidate_resume' title='optionally, you can send your resume with your registration'>
+                        </div>
+                        <hr class='my-5'/>
+                        <!-- consent -->
+                        <div class='pt-5 form-check'>
+                            <input type='checkbox' class='form-check-input' id='candidate_terms_and_conditions_consent' required/>
+                            <label class='form-check-label' for='candidate_terms_and_conditions_consent'>Agree 
+                                <span class='fw-normal'>to our 
+                                    <span class='text-secondary'>
+                                        <a href='./public/termsAndConditions.html' target='_blank'>terms and conditions of website use</a>
+                                    </span>
+                                </span>
+                            </label>
+                        </div>
+                        <div class='pt-5 form-check'>
+                            <input type='checkbox' class='form-check-input' id='candidate_privacy_policy_consent' required/>
+                            <label class='form-check-label' for='candidate_privacy_policy_consent'>Agree 
+                                <span class='fw-normal'>to our 
+                                    <span class='text-secondary'>
+                                        <a href='./public/privacyPolicy.html' target='_blank'>privacy policy</a>
+                                    </span>
+                                </span>
+                            </label>
+                        </div>
+                        <button id='candidate_registration_form_submit_button' type='submit' class='btn btn-primary my-5 '>Submit</button>
+                    </form>
+                </div>
+            </div>
+            <!-- registration confirmation message -->
+            <div id='registration_confirmation_loading' class='container page mt-3 pt-3 fw-normal text-center'>
+                <div class='spinner-grow text-primary' role='status'>
+                    <span class='sr-only'>Loading...</span>
+                </div>
+                <div class='spinner-grow text-secondary' role='status'>
+                    <span class='sr-only'>Loading...</span>
+                </div>
+                <div class='spinner-grow text-success' role='status'>
+                    <span class='sr-only'>Loading...</span>
+                </div>
+                <div class='spinner-grow text-danger' role='status'>
+                    <span class='sr-only'>Loading...</span>
+                </div>
+                <div class='spinner-grow text-warning' role='status'>
+                    <span class='sr-only'>Loading...</span>
+                </div>
+                <div class='spinner-grow text-info' role='status'>
+                    <span class='sr-only'>Loading...</span>
+                </div>
+                <div class='spinner-grow text-dark' role='status'>
+                    <span class='sr-only'>Loading...</span>
+                </div>
+                &nbsp &nbsp <span class='text-secondary'>connecting to database...</span>
+            </div>
+            <div id='registration_confirmation_message' class='mt-3 pt-3 fw-normal text-center'>
+                <p class='text_blue'>Your application has been registered. A member of our team will be in touch with you shortly. <br/>Thank you.</p>
+            </div>
+            <!-- contact -->
+            <div id='contact_page' class='container page bg-light text-white mt-3 pb-5'>
+                <div class='company_address col-sm-12 col-md-6 p-5 '> 
+                    <address class='text_blue'>
+                        All4U Healthcare Solutions Ltd<br/>
+                        Office 4<br/>
+                        219 Kensington High Street<br/>
+                        London, W8 6BD<br/>
+                        England<br/>
+                        <div class='courriel mt-3 pt-3'>                           
+                            <i class='fa fa-phone pt-2 pe-2 text-dark fw-bolder' title='telephone'></i> 020 3855 6165<br/>
+                            <i class='fa fa-envelope-o pt-2 pe-2 text-dark fw-bolder' title='email'></i> info@all4uhealthcare.co.uk<br/>
+                        </div>
+                        <div class=''><span class='text-dark'><i class='fa fa-hourglass-2 pt-2 pe-2 text_pink' title='office hours'></i></span> Mon - Fri, 0900 - 1700hrs</div>
+                        <div class='my-3 py-3'> 
+                            <i class='fa fa-question-circle-o pt-2 pe-2 text-dark fw-bolder' title='helpline, for out-of-hours emergencies and general queries'></i>020 3855 6165
+                            <div class=''><span class='text-dark'><i class='fa fa-hourglass-2 pt-2 pe-2 text_pink' title='helpline hours'></i></span> Anytime</div>
+                        </div>
+                    </address>
+                </div>
+                <div id='company_address_map '>  
+                    <div class='gmap_canvas m-3'>
+                        <iframe
+                            src='https://maps.google.com/maps?q=219%20Kensington%20High%20Street,%20London,%20W8%206BD&t=&z=13&ie=UTF8&iwloc=&output=embed' 
+                            frameborder='0' scrolling='no' marginheight='0' marginwidth='0'>
+                            <a href='https://www.embedgooglemap.net'></a>
+                        </iframe>                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- footer -->
+    <footer>
+        <div id='footer' class='row mt-3'>
+            <div id='copyright_info' class='col-md-6 text-start text-dark fw-bolder'>Copyright 
+                <span class='text_pink'>©</span> 2022 <b>All4U Healthcare Solutions Ltd</b>. All Rights Reserved.
+            </div>
+            <div id='social_media_icons' class='col-md-6 col_sm_none center-col text-end'> 
+                <a href='https://www.facebook.com/all4uhealthcare' class='btn social-icon button' target='_blank' data-abc='true'>
+                    <i class='fa fa-facebook text-primary btn-round  fw-bolder'></i>
+                </a> 
+                <a href='https://www.linkedin.com/company/all4u-healthcare-solutions-ltd' class='btn social-icon button' target='_blank' data-abc='true'>
+                    <i class='fa fa-linkedin btn-round fw-bolder' style='color: #093867;'></i>
+                </a> 
+                <a href='tel: 020 3855 6165' class='btn social-icon button' >
+                    <i class='fa fa-phone text-dark btn-round fw-bolder' title='auotcall'></i>
+                </a>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
+
