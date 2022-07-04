@@ -215,8 +215,8 @@
                     <div class='mt-5 pt-3'>
                         <p class='fw-normal'>To registered your interest, fill out the short form below. A member of our team will be in touch with you shortly.</p>
                     </div>
-                    <form id='candidate_registration_form' action='mailto:info@all4uhealthcare.com?subject=Candidate%20registration%20form' 
-                        method='post' enctype='multipart/form-data' class='bg-light rounded-top ext-white mt-3 p-3'
+                    <form id='candidate_registration_form' class='bg-light rounded-top ext-white mt-3 p-3'  
+                        action='mailto:info@all4uhealthcare.com?subject=Candidate%20registration%20form' method='post' 
                     >
                         <!-- names -->
                         <div class='my-5 text-center'> <span class='candidate_registration_form_section_title fw-bold text-white bg-secondary p-3'>Personal Information</span></div>
@@ -278,29 +278,6 @@
                             </div>
                         </div>
                         <hr class='my-5'/>
-                        <!-- application form supporting documents -->
-                        <div class='mt-3 pt-5 fw-normal'>
-                            <p'>For the Complete Employment Registration Application form:</p>
-                            <ul>
-                                <li>download & fill out the complete Candidate Emploment Registration form below,</li>
-                                <li>upload the filled-out form with any supporting documents</li>
-                            </ul>
-                        </div>
-                        <div class='col-sm-6 mt-5 pt-3'>
-                            <label for='employment_application_form' class='form-label'>Download <span class='fw-normal'>the application form</span></label>
-                            <a href='./applicationForms/All4UCandidateAcquisitionFormv1.0.docx' target='_blank'>
-                                <input id='employment_application_form_download_button' type='button' value='Download' class='btn bg_pink fw-bolder text-white' title='click to download employment application form' disabled/>
-                            </a>
-                        </div>
-                        <div class='col-sm-6 my-5 pt-3'>
-                            <label for='completed_employment_application_form class='form-label'>Upload <span class='fw-normal'>the completed registration form</span></label>
-                            <input class='form-control' type='file' id='completed_employment_application_form' name='completed_employment_application_form' title='optionally, you can send your resume with your registration'>
-                        </div>
-                        <div class='col-sm-6 my-5 pt-3 pb-5'>
-                            <label for='candidate_resume' class='form-label'>Upload <span class='fw-normal'>the supporting documents</span><span class='text-secondary'> e.g. CV</span></label>
-                            <input class='form-control' type='file' id='candidate_resume' name='candidate_resume' title='optionally, you can send your resume with your registration'>
-                        </div>
-                        <hr class='my-5'/>
                         <!-- consent -->
                         <div class='pt-5 form-check'>
                             <input type='checkbox' class='form-check-input' id='candidate_terms_and_conditions_consent' required/>
@@ -349,10 +326,17 @@
                 <div class='spinner-grow text-dark' role='status'>
                     <span class='sr-only'>Loading...</span>
                 </div>
-                &nbsp &nbsp <span class='text-secondary'>connecting to database...</span>
+                &nbsp &nbsp <span class='text-secondary'>&nbsp; &nbsp;<span class='smiley'>😶</span></span>
             </div>
             <div id='registration_confirmation_message' class='mt-3 pt-3 fw-normal text-center'>
-                <p class='text_blue'>Your application has been registered. A member of our team will be in touch with you shortly. <br/>Thank you.</p>
+                <p class='text_blue'>Your form has been received successfully.
+                    <br/> <br/>
+                    A member of our team will be in touch with you shortly. 
+                    <br/> <br/>
+                    <span class='smiley'>😉</span>
+                    <br/> <br/>
+                    Thank you.
+                </p>
             </div>
             <!-- contact -->
             <div id='contact_page' class='container page bg-light text-white mt-3 pb-5'>

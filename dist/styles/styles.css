@@ -102,6 +102,9 @@ body{
 #registration_confirmation_message{
     font-size: 1em;
 }
+.smiley{
+    font-size: 2em;
+}
 hr{
     border: 1.5px solid #FF008C;
 }
