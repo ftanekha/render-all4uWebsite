@@ -93,12 +93,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
                     }, 1.5e4
                 )
             }
+            
             //check all form fields have been filled out
             if(captureFormData()){
                 //make sure the privacy policy has been checked
                 privacyPolicy.checked ? confirmRegistration() : alert('Please confirm that you agree to our Privacy Policy?')
             }
-            
         }
     )
 })
