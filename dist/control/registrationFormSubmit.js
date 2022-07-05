@@ -6,7 +6,19 @@ document.addEventListener('DOMContentLoaded', ()=>{
     registrationForm = document.querySelector('#candidate_registration_form'),
     registrationSubmitButton = document.querySelector('#candidate_registration_form_submit_button'),
     spinner = document.querySelector('#registration_confirmation_loading'),
-    confirmationMessage = document.querySelector('#registration_confirmation_message')
+    confirmationMessage = document.querySelector('#registration_confirmation_message'),
+    candidateTitle = document.querySelector('#candidate_title'),
+    candidateForename = document.querySelector('#candidate_forename'),
+    candidateSurname = document.querySelector('#candidate_surname'),
+    candidateDob = document.querySelector('#candidate_dob'),
+    candidateGender = document.querySelector('#candidate_gender'),
+    candidateNationality = document.querySelector('#candidate_nationality'),
+    candidateContactNumber = document.querySelector('#candidate_contact_number'),
+    candidateEmailAddress = document.querySelector('#candidate_email_address'),
+    candidateAddress = document.querySelector('#candidate_address'),
+    candidateAddressTown = document.querySelector('#candidate_address_town'),
+    candidateAddressCounty = document.querySelector('#candidate_address_county'),
+    candidateAddressPcode = document.querySelector('#candidate_address_p_code')
 
     registrationSubmitButton.addEventListener(
         'click', ev => {
@@ -17,26 +29,44 @@ document.addEventListener('DOMContentLoaded', ()=>{
             function captureFormData(){
                 const
                 personalInfo = {
-                    title: document.querySelector('#candidate_title').value,
-                    forename: document.querySelector('#candidate_forename').value,
-                    surname: document.querySelector('#candidate_surname').value,
-                    dob: document.querySelector('#candidate_dob').value,
-                    gender: document.querySelector('#candidate_gender').value,
-                    nationality: document.querySelector('#candidate_nationality').value,
+                    title: candidateTitle.value,
+                    forename: candidateForename.value,
+                    surname: candidateSurname.value,
+                    dob: candidateDob.value,
+                    gender: candidateGender.value,
+                    nationality: candidateNationality.value,
                 },
                 contactDetails = {
-                    phone: document.querySelector('#candidate_contact_number').value,
-                    email: document.querySelector('#candidate_email_address').value,
-                    address: document.querySelector('#candidate_address').value,
-                    town: document.querySelector('#candidate_address_town').value,
-                    county: document.querySelector('#candidate_address_county').value,
-                    pcode: document.querySelector('#candidate_address_p_code').value
+                    phone: candidateContactNumber.value,
+                    email: candidateEmailAddress.value,
+                    address: candidateAddress.value,
+                    town: candidateAddressTown.value,
+                    county: candidateAddressCounty.value,
+                    pcode: candidateAddressPcode.value
                 }
 
-                for(let i of Object.values(personalInfo)) console.log(i)
-                for(let i of Object.values(contactDetails)) console.log(i)
+                const formData = Object.values(personalInfo).concat(Object.values(contactDetails))
+                
+                function validateForm(){
+                    let emptyFieldCount = 0
+                    for(let value of formData) value == '' && emptyFieldCount++
+
+                    if(emptyFieldCount > 0) {
+                        alert('Please fill out every field')
+                        return false
+                    }else{
+                        return true
+                    }
+                }
+
+                if(validateForm()){
+                    for(let value of formData) console.log(value)
+                    return true
+                }else{
+                    return false
+                }
             } 
-            captureFormData()
+            
             //comfirm registration complete
             function confirmRegistration () {
                 registrationPage.style.display = 'none'
@@ -63,8 +93,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
                     }, 1.5e4
                 )
             }
-            //make sure the privacy policy has been checked
-            privacyPolicy.checked ? confirmRegistration() : alert('Please confirm that you agree to our Privacy Policy?')
+            //check all form fields have been filled out
+            if(captureFormData()){
+                //make sure the privacy policy has been checked
+                privacyPolicy.checked ? confirmRegistration() : alert('Please confirm that you agree to our Privacy Policy?')
+            }
             
         }
     )
