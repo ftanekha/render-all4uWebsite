@@ -30,7 +30,7 @@ function arrayHasAllValidStrings(array){
 ///////////////////////////////////////////////////////////////////////////
 function isValidDate(input){
     //only contains letters, dashes, apostrophes and whitespaces
-    const regex = /^[a-zA-Z0-9/-']{10}$/g
+    const regex = /^[a-zA-Z0-9/-]{10}$/g
     const result = regex.test(input)
     return result
 }
