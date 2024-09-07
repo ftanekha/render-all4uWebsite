@@ -113,6 +113,18 @@ body{
 hr{
     border: 1.5px solid #FF008C;
 }
+ul.error-messages-container{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: hsl(348, 100%, 61%);
+    margin: 20px auto;
+    padding: 30px 15%;
+}
+ul.error-messages-container li{
+    color: white;
+    font-size: 1.25em;
+}
 /* jobs */
 @media only screen and (max-width: 500px) {
     .job_abbreviation{
