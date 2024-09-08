@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
                 const 
                 showSpinner = setInterval(
-                    ()=> spinner.style.display = 'none', 5e3
+                    ()=> spinner.style.display = 'none', 5000
                 ),
                 showConfirmationMessage = setTimeout(
                     ()=> {
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
                         registrationForm.reset()
                         clearInterval(showSpinner)
                         confirmationMessage.style.display = 'block'
-                    }, 5e3
+                    }, 5000
                 ),
                 returnToHomePage = setTimeout(
                     ()=>{
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
                         clearTimeout(showConfirmationMessage)
                         clearTimeout(returnToHomePage)
                         registrationPage.style.display = 'block'
-                    }, 1.5e4
+                    }, 20000
                 )
             }
             //display Error Messages
@@ -44,18 +44,22 @@ document.addEventListener('DOMContentLoaded', ()=>{
                 const errorMessagesContainer = document.querySelector('#error-messages-container')
                 const errorMessagesList = document.querySelector('#error-messages-list')
 
+                errorMessagesList.innerHTML = ''
+                errorMessagesContainer.style.display = 'block'
+
                 messages.forEach( msg => {
                     let li = document.createElement('li')
                     li.innerText = msg
                     li.className = 'error-message'
                     errorMessagesList.appendChild(li)
                 })
-                errorMessagesContainer.style.display
             }
             // remove Error Messages
             function removeErrorMessages(){
                 const errorMessagesContainer = document.querySelector('#error-messages-container')
                 const errorMessagesList = document.querySelector('#error-messages-list')
+
+                if(errorMessagesContainer.style.display === 'none') return
 
                 const interval = setInterval(
                     ()=> {
@@ -64,10 +68,20 @@ document.addEventListener('DOMContentLoaded', ()=>{
                 )
                 const timeout = setTimeout(
                     ()=> {
+                        errorMessagesList.innerHTML = ''
+                        errorMessagesContainer.style.display = 'none'
                         clearInterval(interval)
                         clearTimeout(timeout)
-                        errorMessagesContainer.style.display = 'none'
-                    }, (errorMessagesList.children + 1) * 300
+                    }, (errorMessagesList.children.length + 1) * 300
+                )
+            }
+            //
+            function triggerRemoveErrorMessages(){
+                const timer = setTimeout(
+                    ()=> {
+                        removeErrorMessages()
+                        clearTimeout(timer)
+                    }, 15000
                 )
             }
             //validate form data////////////////////////////////////////////////////////////////////
@@ -98,33 +112,73 @@ document.addEventListener('DOMContentLoaded', ()=>{
                 //validate alpha text
                 if(!arrayHasAllValidStrings(candidateInfoText)) errorMessages.push('Invalid text format detected!')
                 //date
-                if(!isValidDate(candidateDob)) errorMessages.push('Invalid date of birth format!')
+                if(!isValidDate(candidateDob.value)) errorMessages.push('Invalid date of birth format!')
                 //telephone number
-                if(!isValidTelephoneNumber(candidateContactNumber)) errorMessages.push('Invalid telephone number!')
+                if(!isValidTelephoneNumber(candidateContactNumber.value)) errorMessages.push('Invalid telephone number!')
                 //email address
-                if(!isValidEmailAddress(candidateEmailAddress)) errorMessages.push('Invalid email address!')
+                if(!isValidEmailAddress(candidateEmailAddress.value)) errorMessages.push('Invalid email address!')
                 //address (house name/number + street name)
-                if(!isValidAddress(candidateAddress)) errorMessages.push('Invalid address!')
+                if(!isValidAddress(candidateAddress.value)) errorMessages.push('Invalid address!')
                 //address (post code: UK)
-                if(!isValidUKPostCode(candidateAddressPcode)) errorMessages.push('Invalid post code!')
+                if(!isValidUKPostCode(candidateAddressPcode.value)) errorMessages.push('Invalid post code!')
 
-                return errorMessages.length > 0 ? true : errorMessages
+                return errorMessages.length === 0 ? true : errorMessages
             }
             /////////////////////////////////////////////////////////////////////////////////////////
             const privacyPolicy = document.querySelector('#candidate_privacy_policy_consent')
-            
-            if(!Array.isArray(isFormDataValid)){
-                //make sure the privacy policy has been checked
-                privacyPolicy.checked ? confirmRegistration() : alert('Please confirm that you agree to our Privacy Policy?')
-            }else{
-                displayErrorMessages(isFormDataValid)
 
-                const timer = setTimeout(
-                    ()=> {
-                        removeErrorMessages()
-                        clearTimeout(timer)
-                    }, 6000
-                )
+            const isUserDataValid = isFormDataValid()
+
+            if(!Array.isArray(isUserDataValid)){
+                //make sure the privacy policy has been checked
+                if(privacyPolicy.checked){
+                    const formData = {
+                        title: candidateTitle.value, 
+                        forename: candidateForename.value,
+                        surname: candidateSurname.value,
+                        dob: candidateDob.value,
+                        gender: candidateGender.value,
+                        nationality: candidateNationality.value,
+                        contact_number: candidateContactNumber.value,
+                        email_address: candidateEmailAddress.value,
+                        address: candidateAddress.value,
+                        town: candidateAddressTown.value,
+                        county: candidateAddressCounty.value,
+                        post_code: candidateAddressPcode.value
+                    }
+                    console.table(formData)
+                    const requestOptions = {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify(formData)
+                    }
+                    //POST data
+                    fetch('../post-form-data.php', requestOptions)
+                    .then(res => {
+                        if(res.ok && res.status === 200){
+                            return res.json()
+                        }
+                    })//handle bad response from server
+                    .then(data => {
+                        if(Array.isArray(data)){
+                            console.table(data[0])
+                            console.warn(data[1])
+                        }else{//display success message
+                            console.info(data)
+                            confirmRegistration() 
+                        }
+                    })
+                    .catch(err => console.error(err.message))
+                }else{
+                    return alert('Please confirm that you agree to our Privacy Policy?')
+                }
+            }else{
+                const errorMessageRemovers = document.querySelectorAll('.removeErrorMessages')
+
+                displayErrorMessages(isUserDataValid)
+                triggerRemoveErrorMessages()
+
+                errorMessageRemovers.forEach(el => el.addEventListener('click', removeErrorMessages))
             }
         }
     )

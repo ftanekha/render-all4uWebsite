@@ -31,7 +31,7 @@ div#error-messages-container{
     padding: 20px 15%;
 }
 div#error-messages-container ul#error-messages-list{
-    list-style-type: none;
+    list-style-type: square;
     width: 90%;
     margin: 0 auto;
     padding: 20px 30px;
