@@ -104,7 +104,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
                 candidateNationality, candidateAddressTown, candidateAddressCounty
             ]
 
-
             function isFormDataValid(){
                 const errorMessages = []
                 //no blank fields allowed
