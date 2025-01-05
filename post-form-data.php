@@ -1,38 +1,12 @@
 <?php
+require 'connect.php';
 
-include 'loadenv.php';
-#set up PHPMailer
-#Start with PHPMailer class
-use PHPMailer\PHPMailer\PHPMailer;
-//create a new object
-$mail = new PHPMailer();
-//configure an SMTP
-$mail->isSMTP();
-$mail->Host = $_ENV["MAIL_Host"];
-$mail->SMTPAuth = true;
-$mail->Username = $_ENV["MAIL_Username"];
-$mail->Password = $_ENV["MAIL_Password"];
-$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-$mail->Port = 587;
-#get form data
-$host = $_ENV['DB_HOST_NAME'];
-$dbname = $_ENV['DB_NAME'];
-$username = $_ENV['DB_USER_NAME'];
-$password = $_ENV['DB_PASSWORD'];
+error_reporting(-1);//report all errors
+ini_set("display_errors", "1");//shows all errors
+ini_set("log_errors", 1);
+ini_set("error_log", "/tmp/php-error.log");
 #instantiate connection to database
-try
-{
-    $conn = new PDO(
-        "mysql:host=$host;dbname=$dbname;", 
-        $username, $password
-    );
-    #throw any exception raised by PDO
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} 
-catch(PDOException $pe) 
-{
-    die("Could not connect to the database $dbname :" . $pe->getMessage());
-}
+$conn = connect();
 #retrieve the raw POST data
 $jsonData = file_get_contents('php://input');
 #decode the JSON data into a PHP associative array
@@ -198,35 +172,13 @@ if(isset($data['title'])){
                     VALUES (\"$contact_number\", \"$email_address\", \"$address\", \"$town\", \"$county\", \"$post_code)\")";
         try
         {
+            $success_message = 'New registration information sent to database.';
             $result = $conn->query($query_rcd);
+            echo json_encode($success_message);
         }
         catch(Exception $e)
         {
             echo "Exception caught: $e";
-            exit;
-        }
-
-        $success_message = 'New registration information sent to database.';
-        echo json_encode($success_message);
-        
-        #send email notification to developer
-        try{
-             #configure email
-             $mail->setFrom($email_address, "Client");
-             $mail->addAddress("ftall4u@outlook.com", "Farai Tanekha");
-             $mail->Subject = "All4U Registration enquiry form";
-             #set HTML 
-             $mail->isHTML(TRUE);
-             $mail->Body = "<html>$success_message</html>";
-             $mail->AltBody = $success_message;
-             #send the message
-             if(!$mail->send()){
-                 echo json_encode("Message could not be sent.");
-                 throw new Exception("Mailer Error: " . $mail->ErrorInfo);
-             }
-        }catch(Exception $e)
-        {
-            echo json_encode($e);
             exit;
         }
     } 
