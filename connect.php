@@ -1,22 +1,26 @@
 <?php 
+require_once __DIR__ . '/vendor/autoload.php';
+// For local server: Load environment variables from the .env file in the root folder
+if(file_exists(__DIR__ . '/.env')) {
+    Dotenv\Dotenv::createImmutable(__DIR__)->load();
+}
+
 function connect(){
-    #get env variables
-    $host = getenv("DATABASE_HOST");
-    $dbname = getenv("DATABASE_NAME");
-    $username = getenv("DATABASE_USERNAME");
-    $password = getenv("DATABASE_PASSWORD");
-    $dbPort = getenv("DATABASE_PORT");
-    $dsn = "mysql:host=$host;dbname=$dbname;port:$dbPort";
-    #instantiate connection to database
-    try
-    {
+    // Get environment variables
+    $db_host = $_ENV["DATABASE_HOST"];
+    $db_port = $_ENV["DATABASE_PORT"];
+    $db_name = $_ENV["DATABASE_NAME"];
+    $username = $_ENV["DATABASE_USERNAME"];
+    $password = $_ENV["DATABASE_PASSWORD"];
+    // Construct the DSN (Data Source Name) for PDO
+    $dsn = "mysql:host=$db_host;dbname=$db_name;port=$db_port";
+    // Instantiate connection to the database
+    try {
         $conn = new PDO($dsn, $username, $password);
-        #throw any exception raised by PDO
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        echo "connect established";
         return $conn;
-    } 
-    catch(PDOException $pe) 
-    {
-        die("Could not connect to the database..$dsn..$dbname:" . $pe->getMessage());
+    }catch(PDOException $pe){
+        die("Could not connect to the database: " . $pe->getMessage());
     }
 }

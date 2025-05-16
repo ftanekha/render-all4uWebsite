@@ -5,8 +5,6 @@ error_reporting(-1);//report all errors
 ini_set("display_errors", "1");//shows all errors
 ini_set("log_errors", 1);
 ini_set("error_log", "/tmp/php-error.log");
-#instantiate connection to database
-$conn = connect();
 #retrieve the raw POST data
 $jsonData = file_get_contents('php://input');
 #decode the JSON data into a PHP associative array
@@ -155,8 +153,15 @@ if(isset($data['title'])){
             }
              
         }
+        #instantiate connection to database
+        $conn = connect();
+        if(!$conn) {
+            $http_response_code406[] = "Database connection failed.";
+            echo json_encode($http_response_code406);
+            exit;
+        }
         #insert personal info into registration_personal_information table
-        $query_rpi = "INSERT INTO registration_personal_information (title, forename, surname, date_of_birth, gender, nationality)
+        $query_rpi = "INSERT INTO all4u_registration_personal_information (title, forename, surname, date_of_birth, gender, nationality)
                     VALUES (\"$title\", \"$forename\", \"$surname\", \"$dob\", \"$gender\", \"$nationality\")";
         try
         {
@@ -168,7 +173,7 @@ if(isset($data['title'])){
             exit;
         }
         #insert contact info into registration_contact_details table
-        $query_rcd = "INSERT INTO registration_contact_details (contact_number, email_address, address, town, county, post_code)
+        $query_rcd = "INSERT INTO all4u_registration_contact_details (contact_number, email_address, address, town, county, post_code)
                     VALUES (\"$contact_number\", \"$email_address\", \"$address\", \"$town\", \"$county\", \"$post_code)\")";
         try
         {
